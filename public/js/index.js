@@ -86,7 +86,7 @@ $("#signSubmit").on("click",function(){
 
     };
 
-    if(user.userPwd === user.confirmedPwd){
+    if(user.userPwd === confirmedPwd){
 
     $.post("/api/users/", user, loadNewPage);
 
