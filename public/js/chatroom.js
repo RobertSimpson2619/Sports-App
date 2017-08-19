@@ -1,3 +1,36 @@
+
+//navigation button functions
+$(function () {
+  $('#bikes').on('click', function () {
+    $('#navigation>p').remove()
+    $('<p>Biking</p>').appendTo('#navigation');
+  });
+});
+
+$(function () {
+  $('#runs').on('click', function () {
+    $('#navigation>p').remove()
+    $('<p>Running</p>').appendTo('#navigation');
+  });
+});
+
+
+$("#bikes").click(function() {
+    $('html,body').animate({
+        scrollTop: $("#map").offset().top},
+        'slow');
+});
+
+
+$("#runs").click(function() {
+    $('html,body').animate({
+        scrollTop: $("#map").offset().top},
+        'slow');
+});
+
+
+
+
 //Page direction buttons
 
 $("#infoBtn").click(function() {
@@ -62,7 +95,7 @@ function appendData(data){
       row.addClass("message");
 
       row.append("<p>" + data[i].title + " sent.. </p>");
-      row.append("<p> to.. " + data[i].group + "</p>");
+      row.append("<p> to.. " +data[i].group + "</p>");
       row.append("<p>" + data[i].body + "</p>");
       row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
 
