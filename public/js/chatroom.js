@@ -1,7 +1,9 @@
-
+var navigation = "none";
 //navigation button functions
 $(function () {
   $('#bikes').on('click', function () {
+    navigation = "biking";
+    checkSpecificPosts(navigation);
     $('#navigation>p').remove()
     $('<p>Biking</p>').appendTo('#navigation');
   });
@@ -9,24 +11,13 @@ $(function () {
 
 $(function () {
   $('#runs').on('click', function () {
+    navigation = "running";
+    checkSpecificPosts(navigation);
     $('#navigation>p').remove()
     $('<p>Running</p>').appendTo('#navigation');
   });
 });
 
-
-$("#bikes").click(function() {
-    $('html,body').animate({
-        scrollTop: $("#map").offset().top},
-        'slow');
-});
-
-
-$("#runs").click(function() {
-    $('html,body').animate({
-        scrollTop: $("#map").offset().top},
-        'slow');
-});
 
 
 
@@ -84,6 +75,13 @@ function checkPosts(){
     });
 }
 
+function checkSpecificPosts(nav){
+  $.get("/api/posts/group/" + nav, function(data){
+    appendData(data);
+  })
+
+}
+
 function appendData(data){
 	$("#chatroomData").empty();
 
@@ -91,13 +89,21 @@ function appendData(data){
 
     for (var i = 0; i < 10; i++) {
 
-      var row = $("<div>");
-      row.addClass("message");
 
-      row.append("<p>" + data[i].title + " sent.. </p>");
-      row.append("<p> to.. " +data[i].group + "</p>");
-      row.append("<p>" + data[i].body + "</p>");
-      row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
+
+      var row = $("<div>");
+      row.addClass("panel panel-default");
+
+      var heading = $("<div>");
+      heading.addClass("panel-heading");
+      heading.append("<h2>" + data[i].title + " sent " + moment(data[i].created_at).format("h:mma on dddd") + " to " + data[i].group + "<h2>")
+      row.append(heading);
+
+      var body = $("<div>");
+      body.addClass("panel-body");
+      body.append("<p>" + data[i].body + "</p>")
+      row.append(body);
+
 
       $("#chatroomData").prepend(row);
 
