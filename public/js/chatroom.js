@@ -30,10 +30,7 @@ $(function () {
 });
 
 
-    $('<p style = "color:white;">Running</p>').appendTo('#navigation');
-  });
-});
-
+ 
 $("#homeBtn").on("click",function(){
   $('#navigation>p').remove()
   console.log("Test");
@@ -78,26 +75,39 @@ $("#mapBtn").click(function() {
                           "<p><strong>"+ data[i].userLocation+"</strong></div>"+
                           "<div class='col-xs-6' style = 'text-align:center;'>IMAGE</div></div>"
                          );
-             //<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default' id ='routeSubmit'>Add this route</button></div>
+             
             $("#theRoutes").append(well);
          }
-     }<button type="submit" class="btn btn-default" id = "chatSubmit">Submit</button>
+     }
   });
 //==================
 
 //chatroom submit clicked
+
+
 $("#chatSubmit").on("click",function(){
 
-	event.preventDefault();
-	console.log("New Chat message");
+  event.preventDefault();
+  console.log("New Chat message");
 
-	var userName = $("#username").val().trim();
-	var userMessage = $("#message").val().trim();
-	var groupName = $("#group").val().trim();
+  var userName = $("#username").val().trim();
+  var userMessage = $("#message").val().trim();
+  var groupName = $("#group").val().trim();
 
-	insertPost(userName,userMessage,groupName);
-})
+  insertPost(userName,userMessage,groupName);
+});
 
+$("#chatSubmit").on("click",function(){
+
+  event.preventDefault();
+  console.log("New Chat message");
+
+  var userName = $("#username").val().trim();
+  var userMessage = $("#message").val().trim();
+  var groupName = $("#group").val().trim();
+
+  insertPost(userName,userMessage,groupName);
+});
 
 function insertPost(userName, userMessage, groupName) {
     //working
