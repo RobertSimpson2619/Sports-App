@@ -1,3 +1,27 @@
+var navigation = "none";
+//navigation button functions
+$(function () {
+  $('#bikes').on('click', function () {
+    navigation = "biking";
+    checkSpecificPosts(navigation);
+    $('#navigation>p').remove()
+    $('<p>Biking</p>').appendTo('#navigation');
+  });
+});
+
+$(function () {
+  $('#runs').on('click', function () {
+    navigation = "running";
+    checkSpecificPosts(navigation);
+    $('#navigation>p').remove()
+    $('<p>Running</p>').appendTo('#navigation');
+  });
+});
+
+
+
+
+
 //Page direction buttons
 
 $("#infoBtn").click(function() {
@@ -16,7 +40,26 @@ $("#mapBtn").click(function() {
         'slow');
 });
 
-
+//===============
+ $.get("/api/routes", function(data) {
+     console.log(data);
+     if (data != null){
+         for(var i = 0; i< data.length; i++){
+             var well = $("<div>");
+              well.addClass("well");
+              well.append("<div class='row'>"+
+                          "<div class='col-xs-3' style = 'text-align:center;'>"+
+                          "<p><strong>"+ data[i].routeName+"</strong>"+
+                          "<p><strong>"+ data[i].routeDistance+"</strong>"+
+                          "<p><strong>"+ data[i].userLocation+"</strong></div>"+
+                          "<div class='col-xs-6' style = 'text-align:center;'>IMAGE</div></div>"
+                         );
+             //<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default' id ='routeSubmit'>Add this route</button></div>
+            $("#theRoutes").append(well);
+         }
+     }<button type="submit" class="btn btn-default" id = "chatSubmit">Submit</button>
+  });
+//==================
 
 //chatroom submit clicked
 $("#chatSubmit").on("click",function(){
@@ -51,20 +94,38 @@ function checkPosts(){
     });
 }
 
+function checkSpecificPosts(nav){
+  $.get("/api/posts/group/" + nav, function(data){
+    appendData(data);
+  })
+
+}
+
 function appendData(data){
 	$("#chatroomData").empty();
 
 	if (data.length !== 0) {
-
-    for (var i = 0; i < 10; i++) {
+        var roof =0;
+        if(data.length<10){
+            roof = data.length;
+    }else{
+        roof = 10;
+    }
+    for (var i = 0; i < roof; i++) {
 
       var row = $("<div>");
-      row.addClass("message");
+      row.addClass("panel panel-default");
 
-      row.append("<p>" + data[i].title + " sent.. </p>");
-      row.append("<p> to.. " + data[i].group + "</p>");
-      row.append("<p>" + data[i].body + "</p>");
-      row.append("<p>At " + moment(data[i].created_at).format("h:mma on dddd") + "</p>");
+      var heading = $("<div>");
+      heading.addClass("panel-heading");
+      heading.append("<h2>" + data[i].title + " sent " + moment(data[i].created_at).format("h:mma on dddd") + " to " + data[i].group + "<h2>")
+      row.append(heading);
+
+      var body = $("<div>");
+      body.addClass("panel-body");
+      body.append("<p>" + data[i].body + "</p>")
+      row.append(body);
+
 
       $("#chatroomData").prepend(row);
 
@@ -72,6 +133,5 @@ function appendData(data){
 
   }
 }
-
 
 checkPosts();

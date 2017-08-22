@@ -7,21 +7,28 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    routeImage: {
+    routeDistance: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         len: [1]
       }
     },
-    routeCoordinates: {
+    userLocation: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
+    routeImage: {
+      type: DataTypes.BLOB,
       allowNull: true,
       validate: {
         len: [1]
       }
     }
-  });
+  },{timestamps: false});
   return routes;
 };
 

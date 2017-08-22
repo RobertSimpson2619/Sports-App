@@ -18,9 +18,6 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-
-
-
   Chatrooms.associates = function(models){
     Chatrooms.belongsTo(models.Users, {
       foreignKey: {
