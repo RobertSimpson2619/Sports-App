@@ -1,14 +1,21 @@
 var navigation = "none";
 
+
+
 var cat = localStorage.getItem("myUser");
 console.log(cat);
+
 //navigation button functions
 $(function () {
   $('#bikes').on('click', function () {
     navigation = "biking";
     checkSpecificPosts(navigation);
     $('#navigation>p').remove()
+
+    $('<p>Biking</p>').appendTo('#navigation');
+
     $('<p style = "color:white;">Biking</p>').appendTo('#navigation');
+
   });
 });
 
@@ -17,6 +24,12 @@ $(function () {
     navigation = "running";
     checkSpecificPosts(navigation);
     $('#navigation>p').remove()
+
+    $('<p>Running</p>').appendTo('#navigation');
+  });
+});
+
+
     $('<p style = "color:white;">Running</p>').appendTo('#navigation');
   });
 });
@@ -27,6 +40,7 @@ $("#homeBtn").on("click",function(){
   CheckPosts();
   
 })
+
 
 
 
@@ -50,7 +64,26 @@ $("#mapBtn").click(function() {
         'slow');
 });
 
-
+//===============
+ $.get("/api/routes", function(data) {
+     console.log(data);
+     if (data != null){
+         for(var i = 0; i< data.length; i++){
+             var well = $("<div>");
+              well.addClass("well");
+              well.append("<div class='row'>"+
+                          "<div class='col-xs-3' style = 'text-align:center;'>"+
+                          "<p><strong>"+ data[i].routeName+"</strong>"+
+                          "<p><strong>"+ data[i].routeDistance+"</strong>"+
+                          "<p><strong>"+ data[i].userLocation+"</strong></div>"+
+                          "<div class='col-xs-6' style = 'text-align:center;'>IMAGE</div></div>"
+                         );
+             //<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default' id ='routeSubmit'>Add this route</button></div>
+            $("#theRoutes").append(well);
+         }
+     }<button type="submit" class="btn btn-default" id = "chatSubmit">Submit</button>
+  });
+//==================
 
 //chatroom submit clicked
 $("#chatSubmit").on("click",function(){
@@ -96,8 +129,13 @@ function appendData(data){
 	$("#chatroomData").empty();
 
 	if (data.length !== 0) {
-
-    for (var i = 0; i < 10; i++) {
+        var roof =0;
+        if(data.length<10){
+            roof = data.length;
+    }else{
+        roof = 10;
+    }
+    for (var i = 0; i < roof; i++) {
 
 
 
@@ -121,6 +159,8 @@ function appendData(data){
 
   }
 }
+
+
 
 
 checkPosts();
