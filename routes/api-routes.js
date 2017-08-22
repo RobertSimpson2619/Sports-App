@@ -20,6 +20,17 @@ module.exports = function(app) {
     });
   });
 
+// ===========  routes ==========
+    
+   app.get("/api/routes", function(req, res) {
+    db.routes.findAll({})
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  }); 
+    
+// ==============================    
+    
 //GET route for getting all of the users 
   app.get("/api/users/", function(req,res){
     db.Users.findAll({})

@@ -87,7 +87,13 @@ $("#signSubmit").on("click",function(){
 
     };
 
+
+    
+
+    if(user.userPwd === confirmedPwd){
+
     myUser = user.userEmail;
+
 
     
 
