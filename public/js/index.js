@@ -1,4 +1,5 @@
 // Get the modal
+var myUser = "";
 
 
 
@@ -86,11 +87,13 @@ $("#signSubmit").on("click",function(){
 
     };
 
+    myUser = user.userEmail;
+
     
 
     if(user.userPwd === confirmedPwd){
 
-    $.post("/api/users/", user, loadNewPage);
+    $.post("/api/users/", user, loadNewPage(user.userEmail));
 
 	}else{
 		//let the user know the passwords don't match
@@ -105,7 +108,8 @@ $("#signSubmit").on("click",function(){
       for(var i = 0; i < data.length ; i++){
       	if(userEmail === data[i].userEmail){
       		if(userPwd === data[i].userPwd){
-      			loadNewPage();
+            myUser = userEmail;
+      			loadNewPage(userEmail);
 
       		}else{
       			//let the user know the password was invalid
@@ -119,9 +123,22 @@ $("#signSubmit").on("click",function(){
 
   }
 
-  function loadNewPage(){
+  function loadNewPage(user){
+
+    $.get("api/users/" + user, function(data){
+
+      console.log(data);
+
+      localStorage.setItem('myUser', data.id);
+
+    });
+
+    
+
+    // $.get("/api/users/"+ user)
   	// this would load chatroom.html
      window.location = "http://localhost:8080/chatroom";
     
-  	console.log("new page loaded!")
-  }
+    
+  	console.log("new page loaded!");
+  };
