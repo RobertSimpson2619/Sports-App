@@ -1,11 +1,21 @@
 var navigation = "none";
+
+
+
+var cat = localStorage.getItem("myUser");
+console.log(cat);
+
 //navigation button functions
 $(function () {
   $('#bikes').on('click', function () {
     navigation = "biking";
     checkSpecificPosts(navigation);
     $('#navigation>p').remove()
+
     $('<p>Biking</p>').appendTo('#navigation');
+
+    $('<p style = "color:white;">Biking</p>').appendTo('#navigation');
+
   });
 });
 
@@ -14,9 +24,23 @@ $(function () {
     navigation = "running";
     checkSpecificPosts(navigation);
     $('#navigation>p').remove()
+
     $('<p>Running</p>').appendTo('#navigation');
   });
 });
+
+
+    $('<p style = "color:white;">Running</p>').appendTo('#navigation');
+  });
+});
+
+$("#homeBtn").on("click",function(){
+  $('#navigation>p').remove()
+  console.log("Test");
+  CheckPosts();
+  
+})
+
 
 
 
@@ -113,6 +137,8 @@ function appendData(data){
     }
     for (var i = 0; i < roof; i++) {
 
+
+
       var row = $("<div>");
       row.addClass("panel panel-default");
 
@@ -133,5 +159,8 @@ function appendData(data){
 
   }
 }
+
+
+
 
 checkPosts();

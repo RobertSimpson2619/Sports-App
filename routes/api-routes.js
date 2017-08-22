@@ -52,14 +52,15 @@ module.exports = function(app) {
   });
 
   // Get rotue for retrieving a single post ( DEVELOPER USE ONLY API ROUTE )
-  app.get("/api/posts/:id", function(req, res) {
-    db.Chatrooms.findOne({
+  app.get("/api/users/:email", function(req, res) {
+    db.Users.findOne({
       where: {
-        id: req.params.id
+        userEmail: req.params.email
       }
     })
     .then(function(dbPost) {
-      res.json(dbPost);
+      
+      res.json(dbPost)
     });
   });
 
