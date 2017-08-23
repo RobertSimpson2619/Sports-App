@@ -43,6 +43,17 @@ app.get("/api/routes", function(req, res) {
     });
   }); 
   
+app.post("/api/addRoute", function(req, res) {
+    console.log(req.body);
+   // console.log("USER ROUTE: " + db.UserRoutes); 
+    db.UserRoutes.create({
+        RouteId: req.body.routeId,
+        UserId: req.body.userId
+    }).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+   
 app.get("/api/userRoutes/:id", function(req, res) {
     
     console.log(req.params.id);
