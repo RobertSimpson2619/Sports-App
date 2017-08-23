@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var routes = sequelize.define("routes", {
+  var Routes = sequelize.define("Routes", {
     routeName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -14,21 +14,35 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    userLocation: {
+    routeLocation: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1]
       }
     },
-    routeImage: {
-      type: DataTypes.BLOB,
+    routeImageSm: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1]
+      }
+    },
+    routeImageLg: {
+      type: DataTypes.STRING,
       allowNull: true,
       validate: {
         len: [1]
       }
     }
-  },{timestamps: false});
-  return routes;
+},{timestamps: false});
+    
+Routes.associate = function(models) {
+   
+    Routes.belongsToMany(models.Users, {through: 'UserRoutes', timestamps: false, foreignKey: 'UserId', foreignKey: 'RouteId'});
+  };
+
+    
+  return Routes;
 };
 
