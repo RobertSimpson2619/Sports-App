@@ -128,6 +128,7 @@ $("#signSubmit").on("click",function(){
       console.log(data);
 
       localStorage.setItem('myUser', data.id);
+      localStorage.setItem('myName', data.userFirstname);
 
     });
 

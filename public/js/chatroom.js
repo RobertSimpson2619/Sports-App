@@ -3,7 +3,10 @@ var navigation = "none";
 
 
 var cat = localStorage.getItem("myUser");
+var username = localStorage.getItem("myName");
+$("#username").text(username);
 console.log(cat);
+console.log(username);
 
 //navigation button functions
 $(function () {
@@ -39,7 +42,7 @@ $("#homeBtn").on("click",function(){
 })
 
 
-
+$("#username").val(username);
 
 
 
@@ -90,11 +93,11 @@ $("#chatSubmit").on("click",function(){
   event.preventDefault();
   console.log("New Chat message");
 
-  var userName = $("#username").val().trim();
+  username = $("#username").val().trim();
   var userMessage = $("#message").val().trim();
   var groupName = $("#group").val().trim();
 
-  insertPost(userName,userMessage,groupName);
+  insertPost(username,userMessage,groupName);
 });
 
 $("#chatSubmit").on("click",function(){
