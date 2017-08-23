@@ -125,7 +125,7 @@ $("#signSubmit").on("click",function(){
 
     $.get("api/users/" + user, function(data){
 
-      console.log(data);
+//      console.log(data);
 
       localStorage.setItem('myUser', data.id);
       localStorage.setItem('myName', data.userFirstname);

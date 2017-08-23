@@ -26,7 +26,20 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     }
-  },{timestamps: false});
+},{timestamps: false});
+    
+Users.associate = function(models) {
+
+    Users.hasMany(models.Chatrooms, {
+      onDelete: "cascade"
+    });
+    
+//    Users.hasMany(models.Users_routes, {
+//      onDelete: "cascade"
+//    });
+    
+};
+  
   return Users;
 };
 

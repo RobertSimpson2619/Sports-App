@@ -20,24 +20,7 @@ module.exports = function(app) {
     });
   });
 
-// ===========  routes ==========
-    
-   app.get("/api/routes", function(req, res) {
-    db.routes.findAll({})
-    .then(function(dbPost) {
-      res.json(dbPost);
-    });
-  }); 
-    
-// ==============================    
-    
-//GET route for getting all of the users 
-  app.get("/api/users/", function(req,res){
-    db.Users.findAll({})
-    .then(function(dbPost){
-      res.json(dbPost);
-    })
-  })
+
 
   // Get route for returning posts of a specific group
   app.get("/api/posts/group/:group", function(req, res) {
@@ -51,18 +34,6 @@ module.exports = function(app) {
     });
   });
 
-  // Get rotue for retrieving a single post ( DEVELOPER USE ONLY API ROUTE )
-  app.get("/api/users/:email", function(req, res) {
-    db.Users.findOne({
-      where: {
-        userEmail: req.params.email
-      }
-    })
-    .then(function(dbPost) {
-      
-      res.json(dbPost)
-    });
-  });
 
   // POST route for saving a new post
   app.post("/api/posts", function(req, res) {
@@ -77,20 +48,6 @@ module.exports = function(app) {
     });
   });
 
-  //POST route for adding a new user
-
-  app.post("/api/users",function(req,res){
-    console.log(req.body);
-    db.Users.create({
-      userEmail: req.body.userEmail,
-      userPwd: req.body.userPwd,
-      userFirstname: req.body.userFirstname,
-      userLastname: req.body.userLastname 
-    })
-    .then(function(dbPost){
-      res.json(dbPost);
-    })
-  })
 
   // DELETE route for deleting posts   * ADD IN USER VALIDATION
   app.delete("/api/posts/:id", function(req, res) {
