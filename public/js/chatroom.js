@@ -78,7 +78,7 @@ $("#mapBtn").click(function() {
                           "<p><strong>"+ data[i].routeDistance+"</strong>"+
                           "<p><strong>"+ data[i].routeLocation+"</strong></div>"+
                           "<div class='col-xs-6' style = 'text-align:center;'><img class='images' data-toggle='modal' data-target='#exampleModalLong' id='"+data[i].routeImageLg+"' src="+data[i].routeImageSm+" style='height: 70%; width: 70%; object-fit: contain'></div>"+
-                          "<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default' id ='routeSubmit'>Add this route</button></div></div>"
+                          "<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default addRoute' id ='"+i+"'>Add this route</button></div></div>"
                          );
              
             $("#theRoutes").append(well);
@@ -105,7 +105,7 @@ function checkUserRoutes(cat){
 
 function userRoutes(data){
     if (data != null){
-         for(var i = 0; i< data.length; i++){
+         for(var i = 0; i< 2; i++){
              console.log(data[i]);
              var well = $("<div>");
               well.addClass("well");
@@ -115,7 +115,7 @@ function userRoutes(data){
                           "<p><strong>"+ data[i].routeDistance+"</strong>"+
                           "<p><strong>"+ data[i].routeLocation+"</strong></div>"+
                           "<div class='col-xs-6' style = 'text-align:center;'><img class='images' data-toggle='modal' data-target='#exampleModalLong' id='"+data[i].routeImageLg+"' src="+data[i].routeImageSm+" style='height: 50%; width: 50%; object-fit: contain'></div>"+
-                          "<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default' id ='routeSubmit'>Delete route</button></div></div>"
+                          "<div class='col-xs-3' style = 'text-align:center;'><button type='submit' class='btn btn-default deleteRoute' id ='"+i+"'>Delete route</button></div></div>"
                          );
              
             $(".myRouteBody").append(well);
@@ -134,7 +134,30 @@ $(document).on("click", ".close", function(event){
     $(".modal-body").empty();
 
 });
-
+$(document).on("click", ".addRoute", function(event){
+   console.log(this.id);
+   var newRoute = {
+       userId: cat,
+       routeId: this.id
+   }
+    $.post("/api/addRoute",newRoute, function() {
+//      console.log(newRoute);
+//      console.log("posted")
+     // console.log(data)  
+    });
+//   submitRoute(newRoute);
+});
+//function submitRoute(route){
+//    $.post("/api/addRoute/", route, function(data) {
+//      console.log(route);
+//      console.log("posted")
+//      console.log(data)  
+//    });
+//}
+$(document).on("click", ".deleteRoute", function(event){
+    console.log(this.id);
+   
+});
 
 //==================
 

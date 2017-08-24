@@ -39,10 +39,26 @@ module.exports = function(sequelize, DataTypes) {
     
 Routes.associate = function(models) {
    
-    Routes.belongsToMany(models.Users, {through: 'UserRoutes', timestamps: false, foreignKey: 'UserId', foreignKey: 'RouteId'});
+    Routes.belongsToMany(models.Users,{timestamps: false, foreignKey: 'UserId', foreignKey: 'RouteId', through: 'UserRoutes'});
   };
 
+const UserRoutes = sequelize.define('UserRoutes', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  UserId:{
+    type: DataTypes.INTEGER,
+    foreignKey: true
+  },
+    RouteId: {
+    type: DataTypes.INTEGER,
+    foreignKey: true 
+    }
+},{timestamps: false});
     
   return Routes;
+  return UserRoutes;
 };
 
